@@ -1,0 +1,7 @@
+---
+
+container_name: "smart-panda"
+version: "0.1"
+application_name: "smart-panda-app"
+port_mapping:
+  - "8090:8090"
