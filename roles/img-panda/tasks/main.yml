@@ -1,0 +1,26 @@
+---
+
+- name: copy img-panda app
+  copy:
+    src: "{{ application_name }}"
+    dest: /tmp/
+    owner: root
+    group: root
+    mode: 0755
+
+- name: copy img-panda Dockerfile
+  copy: src=Dockerfile dest=/tmp/ owner=root group=root mode=0755
+
+- name: Build img-panda Docker-Image
+  docker_image:
+    path: /tmp/
+    name: "{{ application_name }}"
+    tag: "{{ version }}"
+
+- name: Run img-panda Container
+  docker_container:
+    name: "{{ container_name }}"
+    image: "{{ application_name }}:{{ version }}"
+    state: started
+    restart_policy: always
+    ports: "{{ port_mapping }}"
