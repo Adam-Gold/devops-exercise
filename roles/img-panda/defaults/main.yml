@@ -1,0 +1,7 @@
+---
+
+container_name: "img-panda"
+version: "0.1"
+application_name: "img-panda-app"
+port_mapping:
+  - "8070:8070"
