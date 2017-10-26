@@ -1,0 +1,7 @@
+---
+
+container_name: "bamboo"
+version: "0.1"
+application_name: "bamboo-app"
+port_mapping:
+  - "8080:8080"
