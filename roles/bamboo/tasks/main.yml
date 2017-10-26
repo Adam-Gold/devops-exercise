@@ -1,6 +1,26 @@
 ---
-- name: copy bamboo app
-  copy: src=bamboo-app dest=/tmp/ owner=root group=root mode=0755
 
-- name: npm install
-  npm: path=/tmp/bamboo-app
+- name: copy bamboo app
+  copy:
+    src: "{{ application_name }}"
+    dest: /tmp/
+    owner: root
+    group: root
+    mode: 0755
+
+- name: copy Bamboo Dockerfile
+  copy: src=Dockerfile dest=/tmp/ owner=root group=root mode=0755
+
+- name: Build Bamboo Docker-Image
+  docker_image:
+    path: /tmp/
+    name: "{{ application_name }}"
+    tag: "{{ version }}"
+
+- name: Run Bamboo Container
+  docker_container:
+    name: "{{ container_name }}"
+    image: "{{ application_name }}:{{ version }}"
+    state: started
+    restart_policy: always
+    ports: "{{ port_mapping }}"
